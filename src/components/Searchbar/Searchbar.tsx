@@ -10,7 +10,13 @@ const initialValues = {
 const Searchbar: React.FC<SearchbarProps> = ({ onSubmit }) => {
   return (
     <header className="Searchbar">
-      <Formik initialValues={initialValues} onSubmit={onSubmit}>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={(values, { resetForm }) => {
+          onSubmit(values);
+          resetForm();
+        }}
+      >
         <Form className="SearchForm">
           <button type="submit" className="SearchForm-button">
             <SearchIcon fill={'#7d7d7d'} width={24} height={24} />
