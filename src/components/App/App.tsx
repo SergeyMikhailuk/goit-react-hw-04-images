@@ -28,8 +28,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    if (!imageQuery || status === 'pending') return;
-
+    if (!imageQuery) return;
     fetchImage(imageQuery, pageNumber)
       .then(images => {
         if (images.hits.length === 0) {
@@ -53,7 +52,7 @@ const App = () => {
         setError(ErrorMessage as string);
         setStatus('rejected');
       });
-  }, [imageQuery, pageNumber, status]);
+  }, [imageQuery, pageNumber]);
 
   return (
     <>
