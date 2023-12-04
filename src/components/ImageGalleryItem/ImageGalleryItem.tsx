@@ -7,12 +7,6 @@ const ImageGalleryItem: React.FC<ImageGalleryItemProps> = ({
 }) => {
   const [showModal, setShowModal] = useState(false);
 
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.code === 'Escape') {
-      onCloseModal();
-    }
-  };
-
   const onCloseModal = () => {
     setShowModal(false);
   };
@@ -27,12 +21,17 @@ const ImageGalleryItem: React.FC<ImageGalleryItemProps> = ({
   };
 
   useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.code === 'Escape') {
+        onCloseModal();
+      }
+    };
+
     if (showModal) {
       window.addEventListener('keydown', handleKeyDown);
-    } else {
-      window.removeEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
     }
-  }, [showModal, handleKeyDown]);
+  }, [showModal]);
 
   return (
     <li className={'ImageGalleryItem'}>
